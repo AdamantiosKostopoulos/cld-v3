@@ -1,0 +1,99 @@
+.BC_link{
+  color: rgb(19, 19, 189);
+}
+
+.BC_link:hover{
+  font-size: 17px;
+  text-decoration: none;
+}
+
+.col-sm-12-footer {
+  background-color: rgb(241, 129, 36);
+}
+
+.foot-map{
+  padding-top: 20px;
+}
+
+.foot-details{
+  padding-top: 20px;
+}
+
+.foot-newsletter{
+  padding-top: 20px;
+  padding-bottom: 50px;
+}
+
+
+.container {
+  padding-right: 5px;
+  padding-left: 5px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.footer-main {
+  padding-top: 10px;
+  padding-bottom: 50px;
+  align-items: center;
+}
+
+ul {
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 10px;
+}
+
+.cp{
+  padding-top: 10px;
+  padding-right: 5px;
+  color: #7a4c21;
+}
+
+.cp1{
+  padding-top: 40px;
+  padding-right: 5px;
+}
+
+.cp2{
+  padding-top: 10px;
+  padding-right: 5px;
+}
+
+.text_brown{
+  color: #7a4c21;
+}
+
+.linkHover{
+  font-weight: bold;
+  color: rgb(99, 69, 41);
+  text-decoration: none;
+}
+
+.p_methods{
+  list-style-type: none;
+}
+
+.p_methods li{
+  display: inline;
+  padding-right: 10px;
+}
+
+.p_m{
+  height: 40px;
+  width: 60px;
+}
+
+.col-sm-6{
+  padding-top: 40px;
+}
+
+.foot_row{
+  padding-top:400px;
+}
+
+

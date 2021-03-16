@@ -1,0 +1,65 @@
+.logo-bg{
+  background-color: rgb(241, 129, 36);
+}
+
+.colorChange {
+  color:transparent;
+  background-image: linear-gradient(to left, rgb(99, 69, 41), rgb(207, 181, 155), rgb(255, 255, 255), rgb(207, 181, 155),rgb(99, 69, 41) );
+  background-clip: text;
+  background-size:40000%;
+  animation:colorchange 10s infinite;
+}
+
+@keyframes colorchange {
+  0% {
+    background-position: 0 100%;
+  }
+
+  50% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: 0 100%;
+  }
+
+}
+.img-cart-list{
+  height: 60px;
+  width:70px;
+  border-radius: 0.5em;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.header-icon{
+  transform: scale(0.7);
+
+}
+
+.header-icon:hover{
+  transition: transform .3s;
+  transform: scale(1)  translateZ(-100px);
+  cursor: pointer;
+}
+
+
+@media (max-width: 48em) {
+  .header-items {
+  display: none;
+  }
+  .coffeeBG{
+    height: 250px;
+  }
+  .circleOG{
+    margin-top: 70px;
+  }
+  .logo-bg{
+    margin-top: 200px;
+  }
+}
+
+.container{
+  position: relative;
+}
+

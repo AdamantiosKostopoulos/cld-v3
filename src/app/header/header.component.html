@@ -1,0 +1,133 @@
+<!--nav links-->
+<!-- <nav class="navbar navbar-expand-sm " style="background-color: #ededdd; padding: 0px;" >
+  <div class="container-sm-12 container-md-12 container-lg">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#" (mouseover)="hover_eisodos=true" (mouseleave)="hover_eisodos=false"
+          style="padding-bottom: 0px; padding-left: 0px; padding-top: 0px;" >
+            <span [ngStyle]="{color: hover_eisodos==true  ? 'rgb(177, 132, 89)' :  'rgb(99, 69, 41)' }">
+              <p style="padding: 0px; margin-bottom: 5px; margin-top: 0px; margin-right: 10px;">
+                <img src="./assets/images/userIcon.webp" height="15px" width="13px">
+              Είσοδος
+              </p>
+            </span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" (mouseover)="hover_eggrafi=true" (mouseleave)="hover_eggrafi=false"
+          style="padding-bottom: 0px; padding-left: 0px; padding-top: 0px; margin-right: 10px;">
+            <span [ngStyle]="{color: hover_eggrafi==true  ? 'rgb(177, 132, 89)' :  'rgb(99, 69, 41)' }">
+              <img src="./assets/images/padlockIcon.png" height="15px" width="13px">
+              Εγγραφή
+            </span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <div class="dropdown show">
+            <a class="nav-link" href="#" (click)="showStuff()" (mouseover)="hover_kalathi=true" (mouseleave)="hover_kalathi=false"
+            role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            style="padding-bottom: 0px; padding-left: 0px; padding-top: 0px;">
+              <span [ngStyle]="{color: hover_kalathi==true  ? 'rgb(177, 132, 89)' :  'rgb(99, 69, 41)' }">
+                <img src="./assets/images/basketIcon.png" height="15px" width="13px">
+                Καλάθι<span *ngIf="cartItemsAmount != 0"></span>
+              </span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <div class="container">
+                <span *ngIf="!cartItems" style="width: 400px; margin-left: auto; margin-right: auto;">
+                  <b style="color: red;">Δε βρέθηκαν προϊόντα!</b>
+                </span>
+                <div class="row" *ngFor="let item of cartItems" style="width: 500px; margin-top: 10px;">
+                  <div class="col-2" style="margin-right: 15px; margin-bottom: 0px; height:50px">
+                      <img src="{{item.p_imagePath}}" class="img-cart-list" >
+                  </div>
+                  <div class="col" style="width: 100px;">
+                    <div class="row" >
+                      <b>{{item.p_name}}</b>
+                    </div>
+                    <div class="row" >
+                        <span *ngFor="let extra of item.p_selectedExtra"style="margin-right: 5px;">{{extra}}</span>
+                    </div>
+                    <div class="row">
+                      <span *ngIf="item.p_comments" style="margin-right: 5px;">Σχόλια: </span><div style="width: 300px; word-wrap: break-word">{{item.p_comments}}</div>
+                    </div>
+                    <div class="row">
+                      <span style="color: red;">{{item.p_quantity}} x  € {{item.p_price}}</span>
+                    </div>
+                    <hr style="width: 400px; margin-left: -70px;">
+                  </div>
+                </div>
+                <div *ngIf="cartItems" id="TOTAL" style="margin-left: auto; margin-right: auto;"><b style="color: red;">Σύνολο:   € <span>{{this.finalTotal}}</span></b></div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0" style="padding-bottom: 0px ; margin: 0px;">
+        <span class="colorChange">
+          <b><u><h5>
+            <img src="./assets/images/checkmarkIcon.png" height="17px" width="15px" style="padding-bottom: 0px; margin: 0px;">
+            Περιμένουμε τις παραγγελίες σας
+          </h5></u></b>
+          <p style="color: black; padding-top: 0px; padding-bottom: 0px; margin-bottom: 0px; margin-top: -22px;">
+            __________________________________________________</p>
+        </span>
+      </form>
+    </div>
+  </div>
+</nav> -->
+<!--logo-->
+<div>
+  <div class="coffeeBG" style="padding: 0px; margin-top: -40px; margin-bottom:-90px; background-image: url(./assets/images/header/coffeePaper2.jpg); background-size: 50%;">
+      <!-- <div class="container-sm-12 container-md-12 container-lg">
+        <nav class="navbar navbar-expand-lg" style="padding: 0px;">
+          <a class="navbar-brand" href="#">
+            <img src="./assets/images/cldLogo.png">
+          </a>
+        </nav>
+      </div> -->
+
+      <div class="logo-bg"
+      style="margin-top: 0px; margin-bottom: -60px; height: 60px;">
+      </div>
+
+
+
+      <div class="container">
+        <div class="row">
+          <span style="margin-left:auto; margin-right: auto; margin-top: 70px; z-index: 5;">
+            <img src="./assets/images/header/LogoV3.png" class="img-fluid">
+          </span>
+          <span class="circleOG" style="margin-left:auto; margin-right: auto; z-index: 4;">
+            <img src="./assets/images/header/circleOrange.png" class="img-fluid"
+            style="margin-top:-550px">
+          </span>
+        </div>
+
+
+      </div>
+    </div>
+
+    <!-- <div class="container">
+      <span style="margin-left:auto; margin-right: auto;" class="header-items">
+        <div class="row">
+          <a class="header-icon" style="margin-left:auto; margin-right: auto; margin-top: -70px; z-index: 2;">
+            <img src="./assets/images/header/cart50.png" class="img-fluid" style="margin-left:auto; margin-right: auto;">
+          </a>
+        </div>
+        <div class="row">
+          <a class="header-icon" style="margin-left:auto; margin-right: auto; margin-top: -70px; z-index: 2;">
+            <img src="./assets/images/header/cart50.png" class="img-fluid" style="margin-left:auto; margin-right: auto;">
+          </a>
+        </div>
+      </span>
+    </div> -->
+
+
+
+
+    <div class="logo-bg"
+    style="margin-top: 0px; margin-bottom: -40px; height: 60px;">
+    </div>
+</div>

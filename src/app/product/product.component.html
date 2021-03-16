@@ -1,0 +1,581 @@
+<!--NAV BUTTON-->
+<div class="container">
+  <span style="margin-left:auto; margin-right: auto;" class="header-items">
+    <div class="row">
+      <a class="nav" *ngIf="!openSideNav" style="font-size:30px; cursor:pointer; margin-left:auto; margin-right: auto; z-index: 5;" (click)="openNav()">
+        <img class="nav-btn" src="./assets/images/header/hamburgerIcon40.png">
+      </a>
+      <a class="nav" *ngIf="openSideNav" style="font-size:50px; cursor:pointer; margin-left:auto; margin-right: auto; z-index: 5;" (click)="closeNav()">
+        <img class="nav-btn" src="./assets/images/header/xIcon40.png">
+      </a>
+    </div>
+  </span>
+</div>
+<!--SIDENAV-->
+<div id="Sidenav" class="sidenav" *ngIf="openSideNav">
+  <a ></a>
+  <a >Είσοδος</a>
+  <a >Εγγραφή</a>
+  <a role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Καλάθι</a>
+<!--CART VIEW-->
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="margin-left: 30px; padding:0px">
+    <div class="container" style="padding: 0px;">
+      <span *ngIf="Total<1" style="width: 450px; margin-left: auto; margin-right: auto; border-radius: 5px;">
+        <b style="color: red; padding: 20px;">Δε βρέθηκαν προϊόντα</b>
+      </span>
+      <div *ngIf="Total>1" style="width: 350px; height: 450px; background-color: #111; overflow-y: auto;">
+        <div class="row" *ngFor="let item of Cart" style="margin-top: 10px;">
+          <div class="col-2" style="margin-right: 15px; margin-bottom: 0px; height:50px">
+              <img src="{{item.p_imagePath}}" class="img-cart" >
+          </div>
+          <div class="col" style="width: 70px; margin-left: 20px;">
+            <div class="row" >
+              <b style="color: white;">{{item.p_name}}</b>
+            </div>
+            <div class="row" >
+                <span *ngFor="let extra of item.p_selectedExtra" style="margin-right: 5px; word-wrap: break-word; color:rgb(172, 172, 172)"><b>{{extra}}</b></span>
+            </div>
+            <div class="row">
+              <span *ngIf="item.p_comments" style="margin-right: 5px; color:  rgb(204, 105, 13);"><b>Σχόλια: </b></span><div style="width: 170px; word-wrap: break-word; color: rgb(110, 110, 110);"><b>{{item.p_comments}}</b></div>
+            </div>
+            <div class="row">
+              <span style="color: red;"><b>{{item.p_quantity}} x  € {{item.p_price}}</b></span>
+            </div>
+            <hr style="width: 1px; ">
+          </div>
+        </div>
+      </div>
+      <div *ngIf="Total>1" id="TOTAL" style="margin-left: auto; margin-right: auto; padding:0px; border-top: 20px; border-color:#111; color: red; background-color: #111;" ><b>Σύνολο:</b><span><b style="margin:0px; font-size: 30px"> {{Total}} €</b></span></div>
+    </div>
+  </div>
+</div>
+<!--PRODUCTS-->
+<div class="container-sm-12">
+  <!--ΚΑΦΕΔΕΣ-->
+  <div class="container">
+    <h2>ΚΑΦΕΔΕΣ</h2>
+    <div class="row">
+      <div class="col-xs-2 col-sm-6 col-md-4 col-lg-3" *ngFor="let product of products_Kafedes">
+          <div >
+            <div class="row">
+              <img src="{{product.p_imagePath}}" class="img-display">
+            </div>
+            <div class="row">
+              <div class="col" style="text-align: center;">
+                  <b>{{product.p_name}} {{product.p_price}}€</b>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col" style="text-align: center;">
+                <a (click)="((product.p_quantity > 1) ? product.p_quantity = product.p_quantity - 1 : product.p_quantity = 1)">
+                  <img src="./assets/images/products/minusIcon.webp" style="width: 15px; height:20px; margin-right: 2px;">
+                </a>
+                <b>{{product.p_quantity}}</b>
+                <a (click)="product.p_quantity = product.p_quantity + 1">
+                  <img src="./assets/images/products/plusIcon.png" style="width: 10px; height:10px; margin-left: 5px; ">
+                </a>
+              </div>
+            </div>
+            <div class="row">
+                <a *ngIf="!product.p_showExtra" (click)="product.p_showExtra=true" class="arrow" style="margin-left: auto; margin: auto;">
+                  <img src="./assets/images/icons/arrowDown.png" >
+                </a>
+                <a *ngIf="product.p_showExtra" (click)="product.p_showExtra=false" class="arrow" style="margin-left: auto; margin: auto;">
+                  <img src="./assets/images/icons/arrowUp.png" >
+                </a>
+            </div>
+            <div>
+              <ul class="list-group" *ngIf="product.p_showExtra && product.p_hasExtra">
+                <div class="row" style="padding-left: 40px;" >
+                  <div class="col-12" style="padding-top: 15px;">
+                    <h6><b>Επιπλέον</b></h6>
+                  </div>
+                    <br><br>
+                    <div class="col-6 col-sm-6 col-md-12 col-lg-12" *ngFor="let more of product.p_extras; let i=index">
+                      <label class="check">{{more.e_name}}
+                        <input type="checkbox"
+                        name="{{more}}" [checked]="more.e_checked" (change)="more.e_checked =! more.e_checked">
+                        <span class="check-box"></span>
+                      </label>
+                    </div>
+                </div>
+                <div class="row" style="padding-left: 40px;" >
+                  <div class="col-md-12" style="padding-top: 10px;">
+                    <h6><b>Σχόλια</b></h6>
+                  </div>
+                  <br><br>
+                  <textarea
+                  rows="3" cols="100"
+                  name="comments" id="{{product.p_comments}}"
+                  placeholder="Εισάγετε σχόλια.."
+                  style="resize: none; width: 100%; margin-left: 25px;margin-right: 65px; margin-bottom: 20px; border-radius: 0.2em;"
+                  [(ngModel)]="product.p_comments"></textarea>
+                </div>
+              </ul>
+              <ul class="list-group" *ngIf="product.p_showExtra && !product.p_hasExtra">
+                <div class="row" style="padding-left: 40px;" >
+                  <div class="col-md-12" style="padding-top: 10px;">
+                    <h6><b>Σχόλια</b></h6>
+                  </div>
+                  <br><br>
+                  <textarea
+                  rows="3" cols="100"
+                  name="comments" id="{{product.p_comments}}"
+                  placeholder="Εισάγετε σχόλια.."
+                  style="resize: none; width: 100%; margin-left: 25px;margin-right: 65px; margin-bottom: 20px; border-radius: 0.2em;"
+                  [(ngModel)]="product.p_comments"></textarea>
+                </div>
+              </ul>
+              <div class="row">
+                <div class="col" style="text-align: center;">
+                  <button type="button" class="btn btn-success" (click)="onAddCart(product)" style="margin-bottom: 20px; margin-left: auto; margin-right: auto; padding-left: 50px; padding-right: 50px;">
+                    <img src="./assets/images/icons/addToCartIcon.png" style="width: 25px; height: 25px;">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <!--ΑΝΑΨΥΚΤΙΚΑ-->
+  <div class="container">
+    <h2>ΑΝΑΨΥΚΤΙΚΑ</h2>
+    <div class="row">
+      <div class="col-xs-2 col-sm-6 col-md-4 col-lg-3" *ngFor="let product of products_Anapsiktika">
+          <div >
+            <div class="row">
+              <img src="{{product.p_imagePath}}" class="img-display">
+            </div>
+            <div class="row">
+              <div class="col" style="text-align: center;">
+                  <b>{{product.p_name}} {{product.p_price}}€</b>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col" style="text-align: center;">
+                <a (click)="((product.p_quantity > 1) ? product.p_quantity = product.p_quantity - 1 : product.p_quantity = 1)">
+                  <img src="./assets/images/products/minusIcon.webp" style="width: 15px; height:20px; margin-right: 2px;">
+                </a>
+                <b>{{product.p_quantity}}</b>
+                <a (click)="product.p_quantity = product.p_quantity + 1">
+                  <img src="./assets/images/products/plusIcon.png" style="width: 10px; height:10px; margin-left: 5px; ">
+                </a>
+              </div>
+            </div>
+            <div class="row">
+                <a *ngIf="!product.p_showExtra" (click)="product.p_showExtra=true" class="arrow" style="margin-left: auto; margin: auto;">
+                  <img src="./assets/images/icons/arrowDown.png" >
+                </a>
+                <a *ngIf="product.p_showExtra" (click)="product.p_showExtra=false" class="arrow" style="margin-left: auto; margin: auto;">
+                  <img src="./assets/images/icons/arrowUp.png" >
+                </a>
+            </div>
+            <div>
+              <ul class="list-group" *ngIf="product.p_showExtra && product.p_hasExtra">
+                <div class="row" style="padding-left: 40px;" >
+                  <div class="col-12" style="padding-top: 15px;">
+                    <h6><b>Επιπλέον</b></h6>
+                  </div>
+                    <br><br>
+                    <div class="col-6 col-sm-6 col-md-12 col-lg-12" *ngFor="let more of product.p_extras; let i=index">
+                      <label class="check">{{more.e_name}}
+                        <input type="checkbox"
+                        name="{{more}}" [checked]="more.e_checked" (change)="more.e_checked =! more.e_checked">
+                        <span class="check-box"></span>
+                      </label>
+                    </div>
+                </div>
+                <div class="row" style="padding-left: 40px;" >
+                  <div class="col-md-12" style="padding-top: 10px;">
+                    <h6><b>Σχόλια</b></h6>
+                  </div>
+                  <br><br>
+                  <textarea
+                  rows="3" cols="100"
+                  name="comments" id="{{product.p_comments}}"
+                  placeholder="Εισάγετε σχόλια.."
+                  style="resize: none; width: 100%; margin-left: 25px;margin-right: 65px; margin-bottom: 20px; border-radius: 0.2em;"
+                  [(ngModel)]="product.p_comments"></textarea>
+                </div>
+              </ul>
+              <ul class="list-group" *ngIf="product.p_showExtra && !product.p_hasExtra">
+                <div class="row" style="padding-left: 40px;" >
+                  <div class="col-md-12" style="padding-top: 10px;">
+                    <h6><b>Σχόλια</b></h6>
+                  </div>
+                  <br><br>
+                  <textarea
+                  rows="3" cols="100"
+                  name="comments" id="{{product.p_comments}}"
+                  placeholder="Εισάγετε σχόλια.."
+                  style="resize: none; width: 100%; margin-left: 25px;margin-right: 65px; margin-bottom: 20px; border-radius: 0.2em;"
+                  [(ngModel)]="product.p_comments"></textarea>
+                </div>
+              </ul>
+              <div class="row">
+                <div class="col" style="text-align: center;">
+                  <button type="button" class="btn btn-success" (click)="onAddCart(product)" style="margin-bottom: 20px; margin-left: auto; margin-right: auto; padding-left: 50px; padding-right: 50px;">
+                    <img src="./assets/images/icons/addToCartIcon.png" style="width: 25px; height: 25px;">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <!--ΧΥΜΟΙ-->
+  <div class="container">
+    <h2>ΧΥΜΟΙ</h2>
+    <div class="row">
+      <div class="col-xs-2 col-sm-6 col-md-4 col-lg-3" *ngFor="let product of products_Ximoi">
+          <div >
+            <div class="row">
+              <img src="{{product.p_imagePath}}" class="img-display">
+            </div>
+            <div class="row">
+              <div class="col" style="text-align: center;">
+                  <b>{{product.p_name}} {{product.p_price}}€</b>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col" style="text-align: center;">
+                <a (click)="((product.p_quantity > 1) ? product.p_quantity = product.p_quantity - 1 : product.p_quantity = 1)">
+                  <img src="./assets/images/products/minusIcon.webp" style="width: 15px; height:20px; margin-right: 2px;">
+                </a>
+                <b>{{product.p_quantity}}</b>
+                <a (click)="product.p_quantity = product.p_quantity + 1">
+                  <img src="./assets/images/products/plusIcon.png" style="width: 10px; height:10px; margin-left: 5px; ">
+                </a>
+              </div>
+            </div>
+            <div class="row">
+                <a *ngIf="!product.p_showExtra" (click)="product.p_showExtra=true" class="arrow" style="margin-left: auto; margin: auto;">
+                  <img src="./assets/images/icons/arrowDown.png" >
+                </a>
+                <a *ngIf="product.p_showExtra" (click)="product.p_showExtra=false" class="arrow" style="margin-left: auto; margin: auto;">
+                  <img src="./assets/images/icons/arrowUp.png" >
+                </a>
+            </div>
+            <div>
+              <ul class="list-group" *ngIf="product.p_showExtra && product.p_hasExtra">
+                <div class="row" style="padding-left: 40px;" >
+                  <div class="col-12" style="padding-top: 15px;">
+                    <h6><b>Επιπλέον</b></h6>
+                  </div>
+                    <br><br>
+                    <div class="col-6 col-sm-6 col-md-12 col-lg-12" *ngFor="let more of product.p_extras; let i=index">
+                      <label class="check">{{more.e_name}}
+                        <input type="checkbox"
+                        name="{{more}}" [checked]="more.e_checked" (change)="more.e_checked =! more.e_checked">
+                        <span class="check-box"></span>
+                      </label>
+                    </div>
+                </div>
+                <div class="row" style="padding-left: 40px;" >
+                  <div class="col-md-12" style="padding-top: 10px;">
+                    <h6><b>Σχόλια</b></h6>
+                  </div>
+                  <br><br>
+                  <textarea
+                  rows="3" cols="100"
+                  name="comments" id="{{product.p_comments}}"
+                  placeholder="Εισάγετε σχόλια.."
+                  style="resize: none; width: 100%; margin-left: 25px;margin-right: 65px; margin-bottom: 20px; border-radius: 0.2em;"
+                  [(ngModel)]="product.p_comments"></textarea>
+                </div>
+              </ul>
+              <ul class="list-group" *ngIf="product.p_showExtra && !product.p_hasExtra">
+                <div class="row" style="padding-left: 40px;" >
+                  <div class="col-md-12" style="padding-top: 10px;">
+                    <h6><b>Σχόλια</b></h6>
+                  </div>
+                  <br><br>
+                  <textarea
+                  rows="3" cols="100"
+                  name="comments" id="{{product.p_comments}}"
+                  placeholder="Εισάγετε σχόλια.."
+                  style="resize: none; width: 100%; margin-left: 25px;margin-right: 65px; margin-bottom: 20px; border-radius: 0.2em;"
+                  [(ngModel)]="product.p_comments"></textarea>
+                </div>
+              </ul>
+              <div class="row">
+                <div class="col" style="text-align: center;">
+                  <button type="button" class="btn btn-success" (click)="onAddCart(product)" style="margin-bottom: 20px; margin-left: auto; margin-right: auto; padding-left: 50px; padding-right: 50px;">
+                    <img src="./assets/images/icons/addToCartIcon.png" style="width: 25px; height: 25px;">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <!--ΜΠΥΡΕΣ-->
+  <div class="container">
+    <h2>ΜΠΥΡΕΣ</h2>
+    <div class="row">
+      <div class="col-xs-2 col-sm-6 col-md-4 col-lg-3" *ngFor="let product of products_Mpires">
+          <div >
+            <div class="row">
+              <img src="{{product.p_imagePath}}" class="img-display">
+            </div>
+            <div class="row">
+              <div class="col" style="text-align: center;">
+                  <b>{{product.p_name}} {{product.p_price}}€</b>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col" style="text-align: center;">
+                <a (click)="((product.p_quantity > 1) ? product.p_quantity = product.p_quantity - 1 : product.p_quantity = 1)">
+                  <img src="./assets/images/products/minusIcon.webp" style="width: 15px; height:20px; margin-right: 2px;">
+                </a>
+                <b>{{product.p_quantity}}</b>
+                <a (click)="product.p_quantity = product.p_quantity + 1">
+                  <img src="./assets/images/products/plusIcon.png" style="width: 10px; height:10px; margin-left: 5px; ">
+                </a>
+              </div>
+            </div>
+            <div class="row">
+                <a *ngIf="!product.p_showExtra" (click)="product.p_showExtra=true" class="arrow" style="margin-left: auto; margin: auto;">
+                  <img src="./assets/images/icons/arrowDown.png" >
+                </a>
+                <a *ngIf="product.p_showExtra" (click)="product.p_showExtra=false" class="arrow" style="margin-left: auto; margin: auto;">
+                  <img src="./assets/images/icons/arrowUp.png" >
+                </a>
+            </div>
+            <div>
+              <ul class="list-group" *ngIf="product.p_showExtra && product.p_hasExtra">
+                <div class="row" style="padding-left: 40px;" >
+                  <div class="col-12" style="padding-top: 15px;">
+                    <h6><b>Επιπλέον</b></h6>
+                  </div>
+                    <br><br>
+                    <div class="col-6 col-sm-6 col-md-12 col-lg-12" *ngFor="let more of product.p_extras; let i=index">
+                      <label class="check">{{more.e_name}}
+                        <input type="checkbox"
+                        name="{{more}}" [checked]="more.e_checked" (change)="more.e_checked =! more.e_checked">
+                        <span class="check-box"></span>
+                      </label>
+                    </div>
+                </div>
+                <div class="row" style="padding-left: 40px;" >
+                  <div class="col-md-12" style="padding-top: 10px;">
+                    <h6><b>Σχόλια</b></h6>
+                  </div>
+                  <br><br>
+                  <textarea
+                  rows="3" cols="100"
+                  name="comments" id="{{product.p_comments}}"
+                  placeholder="Εισάγετε σχόλια.."
+                  style="resize: none; width: 100%; margin-left: 25px;margin-right: 65px; margin-bottom: 20px; border-radius: 0.2em;"
+                  [(ngModel)]="product.p_comments"></textarea>
+                </div>
+              </ul>
+              <ul class="list-group" *ngIf="product.p_showExtra && !product.p_hasExtra">
+                <div class="row" style="padding-left: 40px;" >
+                  <div class="col-md-12" style="padding-top: 10px;">
+                    <h6><b>Σχόλια</b></h6>
+                  </div>
+                  <br><br>
+                  <textarea
+                  rows="3" cols="100"
+                  name="comments" id="{{product.p_comments}}"
+                  placeholder="Εισάγετε σχόλια.."
+                  style="resize: none; width: 100%; margin-left: 25px;margin-right: 65px; margin-bottom: 20px; border-radius: 0.2em;"
+                  [(ngModel)]="product.p_comments"></textarea>
+                </div>
+              </ul>
+              <div class="row">
+                <div class="col" style="text-align: center;">
+                  <button type="button" class="btn btn-success" (click)="onAddCart(product)" style="margin-bottom: 20px; margin-left: auto; margin-right: auto; padding-left: 50px; padding-right: 50px;">
+                    <img src="./assets/images/icons/addToCartIcon.png" style="width: 25px; height: 25px;">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <!--ΣΝΑΚ-->
+  <div class="container">
+    <h2>ΣΝΑΚ</h2>
+    <div class="row">
+      <div class="col-xs-2 col-sm-6 col-md-4 col-lg-3" *ngFor="let product of products_Snack">
+          <div >
+            <div class="row">
+              <img src="{{product.p_imagePath}}" class="img-display">
+            </div>
+            <div class="row">
+              <div class="col" style="text-align: center;">
+                  <b>{{product.p_name}} {{product.p_price}}€</b>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col" style="text-align: center;">
+                <a (click)="((product.p_quantity > 1) ? product.p_quantity = product.p_quantity - 1 : product.p_quantity = 1)">
+                  <img src="./assets/images/products/minusIcon.webp" style="width: 15px; height:20px; margin-right: 2px;">
+                </a>
+                <b>{{product.p_quantity}}</b>
+                <a (click)="product.p_quantity = product.p_quantity + 1">
+                  <img src="./assets/images/products/plusIcon.png" style="width: 10px; height:10px; margin-left: 5px; ">
+                </a>
+              </div>
+            </div>
+            <div class="row">
+                <a *ngIf="!product.p_showExtra" (click)="product.p_showExtra=true" class="arrow" style="margin-left: auto; margin: auto;">
+                  <img src="./assets/images/icons/arrowDown.png" >
+                </a>
+                <a *ngIf="product.p_showExtra" (click)="product.p_showExtra=false" class="arrow" style="margin-left: auto; margin: auto;">
+                  <img src="./assets/images/icons/arrowUp.png" >
+                </a>
+            </div>
+            <div>
+              <ul class="list-group" *ngIf="product.p_showExtra && product.p_hasExtra">
+                <div class="row" style="padding-left: 40px;" >
+                  <div class="col-12" style="padding-top: 15px;">
+                    <h6><b>Επιπλέον</b></h6>
+                  </div>
+                    <br><br>
+                    <div class="col-6 col-sm-6 col-md-12 col-lg-12" *ngFor="let more of product.p_extras; let i=index">
+                      <label class="check">{{more.e_name}}
+                        <input type="checkbox"
+                        name="{{more}}" [checked]="more.e_checked" (change)="more.e_checked =! more.e_checked">
+                        <span class="check-box"></span>
+                      </label>
+                    </div>
+                </div>
+                <div class="row" style="padding-left: 40px;" >
+                  <div class="col-md-12" style="padding-top: 10px;">
+                    <h6><b>Σχόλια</b></h6>
+                  </div>
+                  <br><br>
+                  <textarea
+                  rows="3" cols="100"
+                  name="comments" id="{{product.p_comments}}"
+                  placeholder="Εισάγετε σχόλια.."
+                  style="resize: none; width: 100%; margin-left: 25px;margin-right: 65px; margin-bottom: 20px; border-radius: 0.2em;"
+                  [(ngModel)]="product.p_comments"></textarea>
+                </div>
+              </ul>
+              <ul class="list-group" *ngIf="product.p_showExtra && !product.p_hasExtra">
+                <div class="row" style="padding-left: 40px;" >
+                  <div class="col-md-12" style="padding-top: 10px;">
+                    <h6><b>Σχόλια</b></h6>
+                  </div>
+                  <br><br>
+                  <textarea
+                  rows="3" cols="100"
+                  name="comments" id="{{product.p_comments}}"
+                  placeholder="Εισάγετε σχόλια.."
+                  style="resize: none; width: 100%; margin-left: 25px;margin-right: 65px; margin-bottom: 20px; border-radius: 0.2em;"
+                  [(ngModel)]="product.p_comments"></textarea>
+                </div>
+              </ul>
+              <div class="row">
+                <div class="col" style="text-align: center;">
+                  <button type="button" class="btn btn-success" (click)="onAddCart(product)" style="margin-bottom: 20px; margin-left: auto; margin-right: auto; padding-left: 50px; padding-right: 50px;">
+                    <img src="./assets/images/icons/addToCartIcon.png" style="width: 25px; height: 25px;">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+<!--ΠΑΓΩΤΑ-->
+<div class="container">
+  <h2>ΠΑΓΩΤΑ</h2>
+  <div class="row">
+    <div class="col-xs-2 col-sm-6 col-md-4 col-lg-3" *ngFor="let product of products_Pagota">
+        <div >
+          <div class="row">
+            <img src="{{product.p_imagePath}}" class="img-display">
+          </div>
+          <div class="row">
+            <div class="col" style="text-align: center;">
+                <b>{{product.p_name}} {{product.p_price}}€</b>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col" style="text-align: center;">
+              <a (click)="((product.p_quantity > 1) ? product.p_quantity = product.p_quantity - 1 : product.p_quantity = 1)">
+                <img src="./assets/images/products/minusIcon.webp" style="width: 15px; height:20px; margin-right: 2px;">
+              </a>
+              <b>{{product.p_quantity}}</b>
+              <a (click)="product.p_quantity = product.p_quantity + 1">
+                <img src="./assets/images/products/plusIcon.png" style="width: 10px; height:10px; margin-left: 5px; ">
+              </a>
+            </div>
+          </div>
+          <div class="row">
+              <a *ngIf="!product.p_showExtra" (click)="product.p_showExtra=true" class="arrow" style="margin-left: auto; margin: auto;">
+                <img src="./assets/images/icons/arrowDown.png" >
+              </a>
+              <a *ngIf="product.p_showExtra" (click)="product.p_showExtra=false" class="arrow" style="margin-left: auto; margin: auto;">
+                <img src="./assets/images/icons/arrowUp.png" >
+              </a>
+          </div>
+          <div>
+            <ul class="list-group" *ngIf="product.p_showExtra && product.p_hasExtra">
+              <div class="row" style="padding-left: 40px;" >
+                <div class="col-12" style="padding-top: 15px;">
+                  <h6><b>Επιπλέον</b></h6>
+                </div>
+                  <br><br>
+                  <div class="col-6 col-sm-6 col-md-12 col-lg-12" *ngFor="let more of product.p_extras; let i=index">
+                    <label class="check">{{more.e_name}}
+                      <input type="checkbox"
+                      name="{{more}}" [checked]="more.e_checked" (change)="more.e_checked =! more.e_checked">
+                      <span class="check-box"></span>
+                    </label>
+                  </div>
+              </div>
+              <div class="row" style="padding-left: 40px;" >
+                <div class="col-md-12" style="padding-top: 10px;">
+                  <h6><b>Σχόλια</b></h6>
+                </div>
+                <br><br>
+                <textarea
+                rows="3" cols="100"
+                name="comments" id="{{product.p_comments}}"
+                placeholder="Εισάγετε σχόλια.."
+                style="resize: none; width: 100%; margin-left: 25px;margin-right: 65px; margin-bottom: 20px; border-radius: 0.2em;"
+                [(ngModel)]="product.p_comments"></textarea>
+              </div>
+            </ul>
+            <ul class="list-group" *ngIf="product.p_showExtra && !product.p_hasExtra">
+              <div class="row" style="padding-left: 40px;" >
+                <div class="col-md-12" style="padding-top: 10px;">
+                  <h6><b>Σχόλια</b></h6>
+                </div>
+                <br><br>
+                <textarea
+                rows="3" cols="100"
+                name="comments" id="{{product.p_comments}}"
+                placeholder="Εισάγετε σχόλια.."
+                style="resize: none; width: 100%; margin-left: 25px;margin-right: 65px; margin-bottom: 20px; border-radius: 0.2em;"
+                [(ngModel)]="product.p_comments"></textarea>
+              </div>
+            </ul>
+            <div class="row">
+              <div class="col" style="text-align: center;">
+                <button type="button" class="btn btn-success" (click)="onAddCart(product)" style="margin-bottom: 20px; margin-left: auto; margin-right: auto; padding-left: 50px; padding-right: 50px;">
+                  <img src="./assets/images/icons/addToCartIcon.png" style="width: 25px; height: 25px;">
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+
